@@ -190,7 +190,10 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
     lo_column->set_output_length( 20 ).
     lo_column = lo_columns->get_column( 'REMAINING' ).
     lo_column->set_long_text( 'Remaining stock after dispatch' ).
-    lo_column->set_output_length( 20 ).
+    lo_column->set_output_length( 30 ).
+    lo_column = lo_columns->get_column( 'NEXT_BATCH' ).
+    lo_column->set_long_text( 'Next batch that satisfies demand' ).
+    lo_column->set_output_length( 30 ).
 
     lo_table->display( ).
   ENDMETHOD.
