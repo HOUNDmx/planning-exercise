@@ -88,6 +88,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
           lt_stock  TYPE tt_stock,
           ls_output TYPE ty_output.
 
+    "How much do we actually have by that date?
     LOOP AT gt_supply_data INTO DATA(ls_supply).
       READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_stock>) WITH KEY productid = ls_supply-productid.
       IF sy-subrc = 0.
@@ -104,6 +105,13 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
     SORT gt_demand_data BY vip DESCENDING quantity ASCENDING required_date ASCENDING.
 
     LOOP AT gt_demand_data INTO DATA(ls_demand).
+      ls_output-customer_id   = ls_demand-customer_id.
+      ls_output-customer_name = ls_demand-customer_name.
+      ls_output-productid     = ls_demand-productid.
+      ls_output-required_date = ls_demand-required_date.
+      ls_output-quantity      = ls_demand-quantity.
+      ls_output-vip           = ls_demand-vip.
+      ls_output-status        = abap_false.
       READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_mod_stock>) WITH KEY productid = ls_demand-productid.
       IF sy-subrc = 0.
         IF ls_demand-quantity <= <fs_mod_stock>-quantity.
