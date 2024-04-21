@@ -144,6 +144,35 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
     DATA(lo_functions) = lo_table->get_functions( ).
     lo_functions->set_all( abap_true ).
 
+    DATA(lo_columns) = lo_table->get_columns( ).
+    DATA(lo_column) = lo_columns->get_column( 'CUSTOMER_ID' ).
+    lo_column->set_long_text( 'Customer ID' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'CUSTOMER_NAME' ).
+    lo_column->set_long_text( 'Customer Name' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'PRODUCTID' ).
+    lo_column->set_long_text( 'Product ID' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'REQUIRED_DATE' ).
+    lo_column->set_long_text( 'Required Date' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'QUANTITY' ).
+    lo_column->set_long_text( 'Requested quantity' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'VIP' ).
+    lo_column->set_long_text( 'VIP' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'STATUS' ).
+    lo_column->set_long_text( 'Can it be fulfilled?' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'STOCK' ).
+    lo_column->set_long_text( 'Current stock' ).
+    lo_column->set_output_length( 20 ).
+    lo_column = lo_columns->get_column( 'REMAINING' ).
+    lo_column->set_long_text( 'Remaining stock after dispatch' ).
+    lo_column->set_output_length( 20 ).
+
     lo_table->display( ).
   ENDMETHOD.
 
