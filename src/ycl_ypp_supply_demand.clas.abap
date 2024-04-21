@@ -125,6 +125,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
         ENDIF.
       ENDIF.
       APPEND ls_output TO rt_data.
+      CLEAR ls_output.
     ENDLOOP.
     
   ENDMETHOD.
