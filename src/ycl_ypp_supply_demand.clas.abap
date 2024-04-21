@@ -22,8 +22,8 @@ CLASS ycl_ypp_supply_demand DEFINITION
               productid TYPE ypp_supply_log-productid,
               quantity  TYPE ypp_supply_log-quantity,
             END OF ty_stock,
-          
-            tt_stock TYPE TABLE OF ty_stock WITH EMPTY KEY, 
+
+            tt_stock TYPE TABLE OF ty_stock WITH EMPTY KEY,
             tt_output TYPE TABLE OF ty_output WITH EMPTY KEY,
             tt_supply TYPE TABLE OF ypp_supply_log WITH EMPTY KEY,
             tt_demand TYPE TABLE OF ypp_demand WITH EMPTY KEY.
@@ -145,15 +145,15 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
       APPEND ls_output TO rt_data.
       CLEAR ls_output.
     ENDLOOP.
-    
+
   ENDMETHOD.
 
   METHOD display.
     DATA lt_data TYPE tt_output.
     DATA lo_table TYPE REF TO cl_salv_table.
-  
+
     lt_data = it_data.
-  
+
     cl_salv_table=>factory(
         IMPORTING
           r_salv_table = lo_table
