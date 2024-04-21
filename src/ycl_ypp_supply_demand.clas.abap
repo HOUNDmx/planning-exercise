@@ -84,8 +84,9 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
   METHOD process_data.
 
     SORT gt_supply_data BY productid.
-    DATA: ls_stock TYPE ty_stock,
-          lt_stock TYPE tt_stock.
+    DATA: ls_stock  TYPE ty_stock,
+          lt_stock  TYPE tt_stock,
+          ls_output TYPE ty_output.
 
     LOOP AT gt_supply_data INTO DATA(ls_supply).
       READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_stock>) WITH KEY productid = ls_supply-productid.
@@ -96,6 +97,21 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
         ls_stock-quantity = ls_supply-quantity.
         APPEND ls_stock TO lt_stock.
       ENDIF.
+    ENDLOOP.
+
+    "Now we sort the demand by our criteria
+
+    SORT gt_demand_data BY vip DESCENDING quantity ASCENDING required_date ASCENDING.
+
+    LOOP AT gt_demand_data INTO DATA(ls_demand).
+      READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_mod_stock>) WITH KEY productid = ls_demand-productid.
+      IF sy-subrc = 0.
+        IF ls_demand-quantity <= <fs_mod_stock>-quantity.
+          <fs_mod_stock>-quantity = <fs_mod_stock>-quantity - ls_demand-quantity.
+          ls_output-status = abap_true.
+        ENDIF.
+      ENDIF.
+      APPEND ls_output TO rt_data.
     ENDLOOP.
     
   ENDMETHOD.
