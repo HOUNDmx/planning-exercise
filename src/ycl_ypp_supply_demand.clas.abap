@@ -90,7 +90,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
           lt_stock  TYPE tt_stock,
           ls_output TYPE ty_output.
 
-    "How much do we actually have by that date?
+    "Calculate how much do we actually have by that date
     LOOP AT gt_supply_data INTO DATA(ls_supply).
       READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_stock>) WITH KEY productid = ls_supply-productid.
       IF sy-subrc = 0.
@@ -106,6 +106,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
 
     SORT gt_demand_data BY vip DESCENDING quantity ASCENDING required_date ASCENDING.
 
+    ""APPEND VALUE#() could also do the trick maybe?
     LOOP AT gt_demand_data INTO DATA(ls_demand).
       ls_output-customer_id   = ls_demand-customer_id.
       ls_output-customer_name = ls_demand-customer_name.
