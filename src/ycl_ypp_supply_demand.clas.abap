@@ -43,6 +43,9 @@ CLASS ycl_ypp_supply_demand DEFINITION
     CLASS-METHODS process_data
       RETURNING
         VALUE(rt_data) TYPE tt_output.
+    CLASS-METHODS display
+      IMPORTING
+        !it_data TYPE tt_output.
 ENDCLASS.
 
 CLASS ycl_ypp_supply_demand IMPLEMENTATION.
@@ -73,6 +76,10 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
 
   METHOD process_data.
     "TODO some magic
+  ENDMETHOD.
+
+  METHOD display.
+    "basic salv display
   ENDMETHOD.
 
   METHOD run.
