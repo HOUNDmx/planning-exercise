@@ -104,7 +104,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
 
     "Now we sort the demand by our criteria
 
-    SORT gt_demand_data BY vip DESCENDING quantity ASCENDING required_date ASCENDING.
+    SORT gt_demand_data BY required_date vip DESCENDING quantity ASCENDING.
 
     ""APPEND VALUE#() could also do the trick maybe?
     LOOP AT gt_demand_data INTO DATA(ls_demand).
