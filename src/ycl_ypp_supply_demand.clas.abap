@@ -69,14 +69,14 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
 
   METHOD get_supply_data.
     SELECT * FROM ypp_supply_log INTO TABLE rt_supply "small field catalog so pull everything
-      WHERE date <= iv_date "focus only on the date
+      WHERE available_date <= iv_date "focus only on the date
       ORDER BY PRIMARY KEY.
 
   ENDMETHOD.
 
   METHOD get_demand_data.
     SELECT * FROM ypp_demand INTO TABLE rt_demand "same
-      WHERE date <= iv_date "same
+      WHERE required_date <= iv_date "same
       ORDER BY PRIMARY KEY.
 
   ENDMETHOD.
