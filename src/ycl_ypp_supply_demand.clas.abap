@@ -14,6 +14,9 @@ CLASS ycl_ypp_supply_demand DEFINITION
   PROTECTED SECTION.
   PRIVATE SECTION.
 
+    CLASS-DATA: gt_supply_data TYPE tt_supply,
+                gt_demand_data TYPE tt_demand.
+
     CLASS-METHODS check_auth
     RETURNING
       VALUE(rv_auth) TYPE abap_bool.
@@ -42,15 +45,23 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_supply_data.
+    SELECT * FROM ypp_supply_log INTO TABLE rt_supply "small field catalog so pull everything
+      WHERE date <= iv_date "focus only on the date
+      ORDER BY PRIMARY KEY.
 
   ENDMETHOD.
 
   METHOD get_demand_data.
+    SELECT * FROM ypp_demand INTO TABLE rt_demand "same
+      WHERE date <= iv_date "same
+      ORDER BY PRIMARY KEY.
 
   ENDMETHOD.
 
   METHOD run.
     check_auth( ).
+    gt_supply_data = get_supply_data( iv_date ).
+    gt_demand_data = get_demand_data( iv_date ).
 
 
   ENDMETHOD.
