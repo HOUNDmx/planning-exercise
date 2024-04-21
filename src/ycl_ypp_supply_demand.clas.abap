@@ -139,7 +139,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
         ELSE.
           ls_output-stock = <fs_mod_stock>-quantity.
           ls_output-remaining = <fs_mod_stock>-quantity.
-          get_next_supply( iv_date = ls_demand-required_date iv_required = ls_demand-quantity - ls_output-stock ).
+          ls_output-next_batch = get_next_supply( iv_date = ls_demand-required_date iv_required = ls_demand-quantity - ls_output-stock ).
         ENDIF.
       ENDIF.
       APPEND ls_output TO rt_data.
