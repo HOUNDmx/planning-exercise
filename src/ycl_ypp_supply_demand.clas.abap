@@ -5,7 +5,17 @@ CLASS ycl_ypp_supply_demand DEFINITION
 
   PUBLIC SECTION.
 
-    TYPES: tt_supply TYPE TABLE OF ypp_supply_log WITH EMPTY KEY,
+    TYPES: BEGIN OF ty_output,
+              customer_id   TYPE ypp_demand-customer_id,
+              customer_name TYPE ypp_demand-customer_name,
+              productid     TYPE ypp_demand-productid,
+              required_date TYPE ypp_demand-required_date,
+              quantity      TYPE ypp_demand-quantity,
+              vip           TYPE ypp_demand-vip,
+              status        TYPE char10,
+            END OF ty_output,
+    
+           tt_supply TYPE TABLE OF ypp_supply_log WITH EMPTY KEY,
            tt_demand TYPE TABLE OF ypp_demand WITH EMPTY KEY.
 
     CLASS-METHODS run
@@ -30,6 +40,9 @@ CLASS ycl_ypp_supply_demand DEFINITION
       !iv_date TYPE dats
     RETURNING
       VALUE(rt_demand) TYPE tt_demand.
+    CLASS-METHODS process_data
+      RETURNING
+        VALUE(rt_data) TYPE tt_output.
 ENDCLASS.
 
 CLASS ycl_ypp_supply_demand IMPLEMENTATION.
@@ -58,11 +71,14 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD process_data.
+    "TODO some magic
+  ENDMETHOD.
+
   METHOD run.
     check_auth( ).
     gt_supply_data = get_supply_data( iv_date ).
     gt_demand_data = get_demand_data( iv_date ).
-
 
   ENDMETHOD.
 
