@@ -87,6 +87,16 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
     DATA: ls_stock TYPE ty_stock,
           lt_stock TYPE tt_stock.
 
+    LOOP AT gt_supply_data INTO DATA(ls_supply).
+      READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_stock>) WITH KEY productid = ls_supply-productid.
+      IF sy-subrc = 0.
+        <fs_stock>-quantity = <fs_stock>-quantity + ls_supply-quantity.
+      ELSE.
+        ls_stock-productid = ls_supply-productid.
+        ls_stock-quantity = ls_supply-quantity.
+        APPEND ls_stock TO lt_stock.
+      ENDIF.
+    ENDLOOP.
     
   ENDMETHOD.
 
