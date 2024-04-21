@@ -117,7 +117,9 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
       READ TABLE lt_stock ASSIGNING FIELD-SYMBOL(<fs_mod_stock>) WITH KEY productid = ls_demand-productid.
       IF sy-subrc = 0.
         IF ls_demand-quantity <= <fs_mod_stock>-quantity.
+          ls_output-stock = <fs_mod_stock>-quantity.
           <fs_mod_stock>-quantity = <fs_mod_stock>-quantity - ls_demand-quantity.
+          ls_output-remaining = <fs_mod_stock>-quantity.
           ls_output-status = abap_true.
         ENDIF.
       ENDIF.
