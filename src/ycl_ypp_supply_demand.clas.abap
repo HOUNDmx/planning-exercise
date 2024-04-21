@@ -123,6 +123,8 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
           ls_output-remaining = <fs_mod_stock>-quantity.
           ls_output-status = abap_true.
         ENDIF.
+      ELSE.
+        ls_output-stock = <fs_mod_stock>-quantity.
       ENDIF.
       APPEND ls_output TO rt_data.
       CLEAR ls_output.
