@@ -13,6 +13,8 @@ CLASS ycl_ypp_supply_demand DEFINITION
               quantity      TYPE ypp_demand-quantity,
               vip           TYPE ypp_demand-vip,
               status        TYPE char10,
+              stock         TYPE i,
+              remaining     TYPE i,
             END OF ty_output,
 
             BEGIN OF ty_stock,
