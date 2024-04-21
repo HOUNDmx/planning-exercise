@@ -14,9 +14,16 @@ CLASS ycl_ypp_supply_demand DEFINITION
               vip           TYPE ypp_demand-vip,
               status        TYPE char10,
             END OF ty_output,
-    
-           tt_supply TYPE TABLE OF ypp_supply_log WITH EMPTY KEY,
-           tt_demand TYPE TABLE OF ypp_demand WITH EMPTY KEY.
+
+            BEGIN OF ty_stock,
+              productid TYPE ypp_supply_log-productid,
+              quantity  TYPE ypp_supply_log-quantity,
+            END OF ty_stock,
+          
+            tt_stock TYPE TABLE OF ty_stock WITH EMPTY KEY, 
+            tt_output TYPE TABLE OF ty_output WITH EMPTY KEY,
+            tt_supply TYPE TABLE OF ypp_supply_log WITH EMPTY KEY,
+            tt_demand TYPE TABLE OF ypp_demand WITH EMPTY KEY.
 
     CLASS-METHODS run
     IMPORTING
@@ -75,7 +82,12 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD process_data.
-    "TODO some magic
+
+    SORT gt_supply_data BY productid.
+    DATA: ls_stock TYPE ty_stock,
+          lt_stock TYPE tt_stock.
+
+    
   ENDMETHOD.
 
   METHOD display.
