@@ -15,6 +15,7 @@ CLASS ycl_ypp_supply_demand DEFINITION
               status        TYPE char10,
               stock         TYPE i,
               remaining     TYPE i,
+              next_batch    TYPE dats,
             END OF ty_output,
 
             BEGIN OF ty_stock,
@@ -55,6 +56,12 @@ CLASS ycl_ypp_supply_demand DEFINITION
     CLASS-METHODS display
       IMPORTING
         !it_data TYPE tt_output.
+    CLASS-METHODS get_next_supply
+      IMPORTING
+        !iv_date      TYPE dats
+        !iv_required  TYPE i
+      RETURNING
+        VALUE(rv_date) TYPE dats.
 ENDCLASS.
 
 CLASS ycl_ypp_supply_demand IMPLEMENTATION.
@@ -80,6 +87,13 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
     SELECT * FROM ypp_demand INTO TABLE @rt_demand "same
       WHERE required_date <= @iv_date "same
       ORDER BY PRIMARY KEY.
+
+  ENDMETHOD.
+
+  METHOD get_next_supply.
+
+    SELECT SINGLE available_date FROM ypp_supply_log INTO @rv_date
+      WHERE available_date > @iv_date.
 
   ENDMETHOD.
 
@@ -125,6 +139,7 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
         ELSE.
           ls_output-stock = <fs_mod_stock>-quantity.
           ls_output-remaining = <fs_mod_stock>-quantity.
+          get_next_supply( iv_date = ls_demand-required_date iv_required = ls_demand-quantity - ls_output-stock ).
         ENDIF.
       ENDIF.
       APPEND ls_output TO rt_data.
