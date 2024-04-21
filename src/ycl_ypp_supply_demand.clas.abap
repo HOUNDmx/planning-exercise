@@ -32,7 +32,13 @@ ENDCLASS.
 CLASS ycl_ypp_supply_demand IMPLEMENTATION.
 
   METHOD check_auth.
-
+*  "Auth check, run whatevs checks here for auths and permissions, like:
+*    AUTHORITY-CHECK OBJECT 's_supply_demand'
+*      ID 'ACTVT' FIELD '03'.
+*
+*      IF sy-subrc <> 0.
+*        rv_auth = abap_false.
+*      ENDIF.
   ENDMETHOD.
 
   METHOD get_supply_data.
@@ -44,6 +50,8 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD run.
+    check_auth( ).
+
 
   ENDMETHOD.
 
