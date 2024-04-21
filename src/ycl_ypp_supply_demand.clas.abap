@@ -125,7 +125,18 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD display.
-    "basic salv display
+    DATA lt_data TYPE tt_output.
+    DATA lo_table TYPE REF TO cl_salv_table.
+  
+    lt_data = it_data.
+  
+    cl_salv_table=>factory(
+        IMPORTING
+          r_salv_table = lo_table
+        CHANGING
+          t_table      = lt_data ).
+
+    lo_table->display( ).
   ENDMETHOD.
 
   METHOD run.
