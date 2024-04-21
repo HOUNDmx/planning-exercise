@@ -141,6 +141,9 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
         CHANGING
           t_table      = lt_data ).
 
+    DATA(lo_functions) = lo_table->get_functions( ).
+    lo_functions->set_all( abap_true ).
+
     lo_table->display( ).
   ENDMETHOD.
 
