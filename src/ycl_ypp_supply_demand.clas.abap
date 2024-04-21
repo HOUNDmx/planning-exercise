@@ -143,6 +143,8 @@ CLASS ycl_ypp_supply_demand IMPLEMENTATION.
     check_auth( ).
     gt_supply_data = get_supply_data( iv_date ).
     gt_demand_data = get_demand_data( iv_date ).
+    DATA(processed_data) = process_data( ).
+    display( processed_data ).
 
   ENDMETHOD.
 
